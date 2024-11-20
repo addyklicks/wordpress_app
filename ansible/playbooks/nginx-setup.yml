@@ -1,0 +1,9 @@
+- name: Deploy Nginx
+  hosts: k8s
+  tasks:
+    - name: Create Nginx Deployment
+      shell: |
+        kubectl create deployment nginx --image=nginx
+        kubectl scale deployment nginx --replicas=2
+    - name: Expose Nginx Service
+      shell: kubectl expose deployment nginx --port=80 --type=LoadBalancer

@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/your-repo/your-project.git'
+            }
+        }
+        stage('Build Helm Chart') {
+            steps {
+                sh 'helm lint helm/charts/nginx-chart'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'helm install nginx helm/charts/nginx-chart'
+            }
+        }
+    }
+}
